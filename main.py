@@ -17,9 +17,9 @@ def generate_hash_signature(
 
 
 @r.post('/webhook')
-def get_all_messages(request: Request, x_hub_signature: str = Header(None)):
+async def get_all_messages(request: Request, x_hub_signature: str = Header(None)):
     try:
-        payload = request.body()
+        payload = await request.body()
         print(payload)
         signature = generate_hash_signature(payload)
         if x_hub_signature != f"sha1={signature}":
