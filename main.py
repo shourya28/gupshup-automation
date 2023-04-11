@@ -22,9 +22,9 @@ async def get_all_messages(request: Request, x_hub_signature: str = Header(None)
     try:
         payload = await request.body()
         decoded_payload = json.loads(payload.decode("utf-8"))
-        print(type(decoded_payload), decoded_payload)
+        # print(type(decoded_payload), decoded_payload)
         for key in decoded_payload.keys():
-            print(key, payload[key])
+            print(key, decoded_payload[key])
         signature = generate_hash_signature(payload)
         if x_hub_signature != f"sha1={signature}":
             raise HTTPException(status_code = 401, detail="Authentication error")
