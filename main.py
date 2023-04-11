@@ -21,6 +21,7 @@ def generate_hash_signature(
 async def get_all_messages(request: Request, x_hub_signature: str = Header(None)):
     try:
         payload = await request.body()
+        print(payload.decode("utf-8"))
         for key in json.loads(payload.decode("utf-8")).keys():
             print(key, payload[key])
         signature = generate_hash_signature(payload)
