@@ -2,6 +2,7 @@ import json
 from http.client import HTTPException
 from typing import Annotated
 from fastapi import APIRouter, Form, Request, Response, Header
+import requests
 
 import hashlib
 import hmac
@@ -20,6 +21,7 @@ def generate_hash_signature(
 @r.post('/webhook')
 async def get_all_messages(request: Request, x_hub_signature: str = Header(None)):
     try:
+        r = requests
         payload = await request.body()
         decoded_payload = json.loads(payload.decode("utf-8"))
         # print(type(decoded_payload), decoded_payload)
@@ -28,6 +30,11 @@ async def get_all_messages(request: Request, x_hub_signature: str = Header(None)
         signature = generate_hash_signature(payload)
         if x_hub_signature != f"sha1={signature}":
             raise HTTPException(status_code = 401, detail="Authentication error")
+        r = requests.post(
+            "https://script.google.com/macros/s"
+            "/AKfycbxlAvm1e3AzOY19jxND77mSRQkaYi6tLd9JcORlzzul_P8W6Zk1dToZixANbnKp9NRi/exec",
+            data = decoded_payload
+                          )
         return {
             "message": "Added"
         }
