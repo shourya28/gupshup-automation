@@ -27,10 +27,11 @@ async def get_all_messages(request: Request, x_hub_signature: str = Header(None)
         # print(type(decoded_payload), decoded_payload)
         for key in decoded_payload.keys():
             print(key, decoded_payload[key])
+        print("control over here")
         signature = generate_hash_signature(payload)
         if x_hub_signature != f"sha1={signature}":
             raise HTTPException(status_code = 401, detail="Authentication error")
-        print("____________________________________________")
+        print("control over here")
         r = requests.post(
             "https://script.google.com/macros/s"
             "/AKfycbxlAvm1e3AzOY19jxND77mSRQkaYi6tLd9JcORlzzul_P8W6Zk1dToZixANbnKp9NRi/exec",
