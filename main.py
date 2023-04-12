@@ -35,6 +35,8 @@ async def get_all_messages(request: Request, x_hub_signature: str = Header(None)
             "/AKfycbxlAvm1e3AzOY19jxND77mSRQkaYi6tLd9JcORlzzul_P8W6Zk1dToZixANbnKp9NRi/exec",
             data = decoded_payload
                           )
+        print("____________________________________________")
+        print(r.text)
         return {
             "message": "Added"
         }
