@@ -15,6 +15,7 @@ r = APIRouter()
 def generate_hash_signature(
         payload: bytes,
         digest_method=hashlib.sha1):
+    print("control over here")
     return hmac.new(payload, digest_method).hexdigest()
 
 
